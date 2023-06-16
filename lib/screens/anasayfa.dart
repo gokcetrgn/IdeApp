@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:ideapp/screens/not_alma.dart';
+import 'not_alma.dart';
+import 'notlar.dart';
 
 void main() {
   runApp(Anasayfa());
@@ -48,8 +48,8 @@ class _AnasayfaState extends State<Anasayfa> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'IdeApp',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -67,16 +67,6 @@ class _AnasayfaState extends State<Anasayfa> {
             ),
           ),
           centerTitle: true,
-        ),
-        bottomNavigationBar: CurvedNavigationBar(
-
-          backgroundColor: Colors.greenAccent,
-          items: [
-            Icon(Icons.home),
-            Icon(Icons.person),
-            Icon(Icons.messenger),
-            Icon(Icons.settings),
-          ],
         ),
         body: Stack(
           children: [
@@ -121,6 +111,39 @@ class _AnasayfaState extends State<Anasayfa> {
                     child: Row(
                       children: quotes.map((quote) => CardWidget(quote)).toList(),
                     ),
+                  ),
+                ),
+                Container(
+                  color: Colors.green,
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // Anasayfa butonuna tıklandığında yapılacak işlemler
+                          print('Anasayfa butonuna tıklandı');
+                        },
+                        child: const Icon(Icons.home, color: Colors.white),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          // Notlar butonuna tıklandığında yapılacak işlemler
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NotlarPage()),
+                          );
+                        },
+                        child: const Icon(Icons.psychology, color: Colors.white),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          // Ayarlar butonuna tıklandığında yapılacak işlemler
+                          print('Ayarlar butonuna tıklandı');
+                        },
+                        child: const Icon(Icons.settings, color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ],

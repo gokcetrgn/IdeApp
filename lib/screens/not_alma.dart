@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ideapp/database/database_helper.dart';
+
+import 'anasayfa.dart';
 
 class NotAlmaPage extends StatefulWidget {
   @override
@@ -11,18 +14,56 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
   TextEditingController noteController = TextEditingController();
   TextEditingController newCategoryController = TextEditingController();
 
-  List<String> categories = [
-    'Kategori 1',
-    'Kategori 2',
-    'Kategori 3',
-    'Kategori 4',
-    'Kategori 5',
-  ];
+  DatabaseHelper dbHelper = DatabaseHelper();
+
+  List<String> categories = [];
 
   @override
   void initState() {
     super.initState();
-    selectedCategory = categories[0]; // İlk kategori varsayılan olarak seçili olarak başlatılıyor
+    selectedCategory = '';
+
+    loadCategories();
+  }
+
+  void loadCategories() async {
+    List<String> loadedCategories = await dbHelper.getCategories();
+    setState(() {
+      categories = loadedCategories;
+      selectedCategory = categories.isNotEmpty ? categories[0] : '';
+    });
+  }
+
+  void addNote() async {
+    int category = categories.indexOf(selectedCategory) + 1;
+    String title = titleController.text;
+    String note = noteController.text;
+
+    await dbHelper.notEkle(category, title, note);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Başarılı'),
+          content: const Text('Notunuz kaydedildi.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Kapatma butonuna basınca dialogu kapat
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Anasayfa(), // AnaSayfa'ya geç
+                  ),
+                );
+              },
+              child: const Text('Tamam'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -38,10 +79,9 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               DropdownButtonFormField<String>(
-                value: selectedCategory,
+                value: selectedCategory.isNotEmpty ? selectedCategory : null,
                 onChanged: (value) {
                   if (value == 'Yeni Kategori Oluştur') {
-                    // Yeni kategori oluşturma işlemi
                     _showCreateCategoryDialog();
                   } else {
                     setState(() {
@@ -94,19 +134,7 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  // Notu kaydetmek için gerekli işlemleri yapın
-                  String category = selectedCategory;
-                  String title = titleController.text;
-                  String note = noteController.text;
-
-                  // Örnek olarak notu yazdıralım
-                  print('Kategori: $category');
-                  print('Başlık: $title');
-                  print('Not: $note');
-
-                  // Notu kaydettikten sonra istediğiniz işlemleri yapabilirsiniz
-                },
+                onPressed: addNote,
                 child: const Text('Kaydet'),
               ),
             ],
@@ -132,19 +160,18 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Dialogu kapat
+                Navigator.pop(context);
               },
               child: const Text('İptal'),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 String newCategory = newCategoryController.text;
                 if (newCategory.isNotEmpty) {
-                  setState(() {
-                    categories.add(newCategory);
-                    selectedCategory = newCategory;
-                  });
-                  Navigator.pop(context); // Dialogu kapat
+                  await dbHelper.kategoriEkle(newCategory);
+                  loadCategories();
+                  selectedCategory = newCategory;
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Oluştur'),
