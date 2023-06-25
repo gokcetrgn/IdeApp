@@ -80,4 +80,10 @@ class DatabaseHelper {
     final db = await database;
     return db.query('notes', where: 'category_id = ?', whereArgs: [categoryId]);
   }
+
+  Future<void> updateCategoryName(int categoryId, String newName) async {
+    final db = await database;
+    await db.update('categories', {'name': newName},
+        where: 'id = ?', whereArgs: [categoryId]);
+  }
 }

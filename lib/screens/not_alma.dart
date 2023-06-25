@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ideapp/database/database_helper.dart';
-
 import 'anasayfa.dart';
 
 class NotAlmaPage extends StatefulWidget {
@@ -22,7 +21,6 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
   void initState() {
     super.initState();
     selectedCategory = '';
-
     loadCategories();
   }
 
@@ -50,11 +48,11 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context); // Kapatma butonuna basınca dialogu kapat
+                Navigator.pop(context);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Anasayfa(), // AnaSayfa'ya geç
+                    builder: (context) => Anasayfa(),
                   ),
                 );
               },
@@ -90,12 +88,6 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
                   }
                 },
                 items: [
-                  ...categories.map((category) {
-                    return DropdownMenuItem<String>(
-                      value: category,
-                      child: Text(category),
-                    );
-                  }),
                   DropdownMenuItem<String>(
                     value: 'Yeni Kategori Oluştur',
                     child: Row(
@@ -109,6 +101,12 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
                       ],
                     ),
                   ),
+                  ...categories.map((category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }),
                 ],
                 decoration: InputDecoration(
                   labelText: 'Kategori Seçin veya Oluşturun',
@@ -118,6 +116,7 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
               const SizedBox(height: 16.0),
               TextField(
                 controller: titleController,
+                maxLength: 100,
                 decoration: InputDecoration(
                   labelText: 'Başlık',
                   border: OutlineInputBorder(),
@@ -152,6 +151,7 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
           title: const Text('Yeni Kategori Oluştur'),
           content: TextField(
             controller: newCategoryController,
+            maxLength: 25,
             decoration: InputDecoration(
               labelText: 'Kategori Adı',
               border: OutlineInputBorder(),
@@ -168,11 +168,19 @@ class _NotAlmaPageState extends State<NotAlmaPage> {
               onPressed: () async {
                 String newCategory = newCategoryController.text;
                 if (newCategory.isNotEmpty) {
-                  await dbHelper.kategoriEkle(newCategory);
-                  loadCategories();
-                  selectedCategory = newCategory;
-                  Navigator.pop(context);
+                  if (!categories.contains(newCategory)) {
+                    await dbHelper.kategoriEkle(newCategory);
+                    setState(() {
+                      selectedCategory = newCategory;
+                      categories.add(newCategory);
+                    });
+                  } else {
+                    setState(() {
+                      selectedCategory = newCategory;
+                    });
+                  }
                 }
+                Navigator.pop(context);
               },
               child: const Text('Oluştur'),
             ),

@@ -12,8 +12,11 @@ class OkunanNotPage extends StatefulWidget {
 }
 
 class _OkunanNotPageState extends State<OkunanNotPage> {
+  List<Map<String, dynamic>> notes = [];
+  List<Map<String, dynamic>> searchedNotes = [];
   late Future<List<Map<String, dynamic>>> notesFuture;
   DatabaseHelper dbHelper = DatabaseHelper();
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -23,7 +26,22 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
 
   Future<void> loadNotes() async {
     notesFuture = dbHelper.getNotesByCategory(widget.categoryId);
-    setState(() {}); // State'i güncelle
+    final List<Map<String, dynamic>> loadedNotes = await notesFuture;
+    setState(() {
+      notes = loadedNotes;
+      searchedNotes = List.from(notes);
+    });
+  }
+
+  void searchNotes(String searchText) {
+    setState(() {
+      searchedNotes = notes.where((note) {
+        final noteTitle = note['title'].toString().toLowerCase();
+        final noteContent = note['content'].toString().toLowerCase();
+        return noteTitle.contains(searchText.toLowerCase()) ||
+            noteContent.contains(searchText.toLowerCase());
+      }).toList();
+    });
   }
 
   @override
@@ -32,34 +50,43 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
       appBar: AppBar(
         title: const Text('Notlar'),
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: notesFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Hata: ${snapshot.error}'),
-            );
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(
-              child: Text('Not bulunamadı'),
-            );
-          } else {
-            final notes = snapshot.data!;
-            return ListView.builder(
-              itemCount: notes.length,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: (value) {
+                searchNotes(value);
+              },
+              decoration: InputDecoration(
+                labelText: 'Not Ara',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: searchedNotes.length,
               itemBuilder: (context, index) {
-                final note = notes[index];
+                final note = searchedNotes[index];
                 final noteId = note['id'];
                 final noteTitle = note['title'];
                 final noteContent = note['content'];
+                final previewTitle = noteTitle.split('\n').take(2).join('\n');
+                final previewContent = noteContent.split('\n').take(2).join('\n');
 
                 return ListTile(
-                  title: Text(noteTitle),
-                  subtitle: Text(noteContent),
+                  title: Text(
+                    previewTitle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  subtitle: Text(
+                    previewContent,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
@@ -71,9 +98,9 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
                   },
                 );
               },
-            );
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -107,7 +134,7 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
 
   void _deleteNoteAndRefreshList(int noteId) async {
     await dbHelper.deleteNote(noteId);
-    loadNotes(); // Notları yeniden yükle
+    loadNotes();
   }
 
   Future<void> _navigateToNoteDetail(BuildContext context, String noteTitle, String noteContent, int noteId) async {
@@ -121,6 +148,6 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
         ),
       ),
     );
-    loadNotes(); // Notları yeniden yükle
+    loadNotes();
   }
 }
