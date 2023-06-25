@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ideapp/screens/anasayfa.dart';
 import 'package:ideapp/screens/google_ile_giris.dart';
 import 'package:ideapp/screens/uye_ol_ekrani.dart';
 
@@ -118,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               print("Error ${error.toString()}");
                             });
                           }
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
                         },
                         child: Text(
                           "Giriş Yap",
@@ -169,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         SetOptions(merge: true),
                       );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
                       _textemail.clear();
                       _textsifre.clear();
                     },

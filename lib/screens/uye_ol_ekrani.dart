@@ -11,12 +11,28 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  
+  
   var _textsifre = TextEditingController();
   var _textemail = TextEditingController();
   var _textad = TextEditingController();
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+
+    final snackbar = SnackBar(
+      content: Text("Giriş kısmına yönlendiriliyorsunuz...",style: TextStyle(color: Colors.black54),),
+
+      duration: Duration(seconds: 3),
+      backgroundColor: Colors.white,
+      action: SnackBarAction(
+        label: "Tamam",
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+      ),
+
+    );
     return Scaffold(
         backgroundColor: Colors.green.shade200,
         body:SingleChildScrollView(
@@ -132,6 +148,15 @@ class _SignInScreenState extends State<SignInScreen> {
                         print("Error ${error.toString}");
                       }
                       );
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar).closed.then((SnackBarClosedReason reason){
+                        if (reason == SnackBarClosedReason.timeout) {
+                          // Snackbar süresi bittiğinde sayfa değiştir
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginScreen()),
+                          );
+                        }
+                      });
                       _textsifre.clear();
                       _textemail.clear();
                       _textad.clear();

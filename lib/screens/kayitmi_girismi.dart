@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ideapp/screens/anasayfa.dart';
 import 'package:ideapp/screens/giris_ekrani.dart';
 import 'package:ideapp/screens/uye_ol_ekrani.dart';
 
@@ -104,6 +105,7 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
                   child: TextButton(
                     onPressed: () {
                       FirebaseAuth.instance.signInAnonymously();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
                     },
                     child: Text(
                       "Üye olmadan devam et ",
