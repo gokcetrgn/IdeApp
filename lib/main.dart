@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ideapp/screens/giris_ekrani.dart';
+import 'package:ideapp/onboardingpages/GecisSayfasi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
         useMaterial3: true,
       ),
-      home: GirisEkrani(),
+      home: GecisSayfasi(),
     );
   }
 }
