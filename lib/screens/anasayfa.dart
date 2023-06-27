@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,8 +22,8 @@ class Anasayfa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'IdeApp',
       debugShowCheckedModeBanner: false,
+      title: 'IdeApp',
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -41,12 +42,24 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
   List<StoicQuote> quotes = [];
   List<Map<String, dynamic>> categories = [];
   final ScrollController scrollController = ScrollController();
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
     fetchStoicQuotes();
     fetchCategories();
+
+    // Her saniye kategorileri kontrol etmek için Timer kullanımı
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      fetchCategories();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel(); // Timer'ı iptal et
+    super.dispose();
   }
 
   Future<void> fetchStoicQuotes() async {
@@ -195,22 +208,48 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
   }
 }
 
-class CategoryItem extends StatelessWidget {
+class CategoryItem extends StatefulWidget {
   final String category;
   final Function onTap;
 
   const CategoryItem(this.category, this.onTap);
 
   @override
+  _CategoryItemState createState() => _CategoryItemState();
+}
+
+class _CategoryItemState extends State<CategoryItem> {
+  bool isTapped = false;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
+      onTapDown: (_) {
+        setState(() {
+          isTapped = true;
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          isTapped = false;
+        });
+        widget.onTap();
+      },
+      onTapCancel: () {
+        setState(() {
+          isTapped = false;
+        });
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: isTapped ? Color.fromARGB(255, 28, 199, 142) : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Text(
-          category,
+          widget.category,
           style: TextStyle(
-            color: Colors.white,
+            color: isTapped ? Colors.black : Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
