@@ -15,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
+
   var _textsifre = TextEditingController();
   var _textemail = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -59,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(right: 16.0, left: 16.0),
                     child: TextFormField(
                       controller: _textemail,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email_outlined),
                           filled: true,
@@ -110,16 +113,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (kontrolSonucu) {
                             String email = _textemail.text;
                             String sifre = _textsifre.text;
-                            // Navigator.push(context, MaterialPageRoute(builder: (context) => ()
-                            FirebaseAuth.instance.signInWithEmailAndPassword(
-                                email: _textemail.text,
-                                password: _textsifre.text).then((value) {
-                              print("Giris yapildi");
-                            }).onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
-                            });
+
+                            signInWithEmailAndPassword(email,sifre);
                           }
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
                         },
                         child: Text(
                           "Giriş Yap",
@@ -171,9 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         SetOptions(merge: true),
                       );
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
-                      _textemail.clear();
-                      _textsifre.clear();
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Anasayfa()));
                     },
                     child: Text("Google ile giriş yap",
                         style: TextStyle(
@@ -204,6 +198,49 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-        ));
+        )
+    );
+  }
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
+    try {
+      final UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        // Kullanıcı oturumu açtı, giriş işlemlerini gerçekleştir
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Anasayfa()),
+        );
+        _textemail.clear();
+        _textsifre.clear();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // E-posta kaydı bulunamadı
+        print('Bu eposta adresine ait bir kullanıcı bulunamadı.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Bu eposta adresine ait bir kullanıcı bulunamadı.'),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        // Yanlış şifre
+        print('Şifre yanlış.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Şifre yanlış!'),
+          ),
+        );
+      }
+    } catch (e) {
+      // Diğer hatalar
+      print('Giriş yaparken bir hata oluştu: $e');
+    }
   }
 }
+

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:ideapp/screens/profilsayfasi.dart';
 import 'not_alma.dart';
 import 'notlar.dart';
 import 'package:ideapp/database/database_helper.dart';
@@ -111,14 +113,13 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        backgroundColor: Colors.green.shade300,
+        title: Text(
           'IdeApp',
-          style: TextStyle(
-            fontFamily: 'MajorMonoDisplay',
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            letterSpacing: 5.0,
-            fontSize: 28.0,
+            style: GoogleFonts.wixMadeforText(
+              color: Colors.white,
+                fontSize: 45,
+                fontWeight: FontWeight.w300,
           ),
         ),
         centerTitle: true,
@@ -128,7 +129,7 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
           Column(
             children: [
               Container(
-                color: Colors.green,
+                color: Colors.green.shade300,
                 height: 50,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -170,14 +171,14 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
         child: Icon(Icons.create),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.green,
+        color: Colors.green.shade300,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
               padding: EdgeInsets.zero,
               onPressed: () {
-                // Profil butonuna basıldığında yapılacak işlemler
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilPage()));
               },
               icon: Icon(Icons.account_circle),
               color: Colors.white,
