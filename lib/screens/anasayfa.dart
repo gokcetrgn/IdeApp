@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:ideapp/screens/profilsayfasi.dart';
 import 'not_alma.dart';
 import 'notlar.dart';
 import 'package:ideapp/database/database_helper.dart';
 import 'okunan_not.dart';
+import 'profilsayfasi.dart';
 
 void main() {
   runApp(Anasayfa());
@@ -24,7 +23,6 @@ class Anasayfa extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'IdeApp',
       theme: ThemeData(
         primarySwatch: Colors.green,
@@ -113,13 +111,14 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green.shade300,
-        title: Text(
+        title: const Text(
           'IdeApp',
-            style: GoogleFonts.wixMadeforText(
-              color: Colors.white,
-                fontSize: 45,
-                fontWeight: FontWeight.w300,
+          style: TextStyle(
+            fontFamily: 'MajorMonoDisplay',
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 5.0,
+            fontSize: 28.0,
           ),
         ),
         centerTitle: true,
@@ -129,7 +128,7 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
           Column(
             children: [
               Container(
-                color: Colors.green.shade300,
+                color: Colors.green,
                 height: 50,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -171,14 +170,17 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
         child: Icon(Icons.create),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.green.shade300,
+        color: Colors.green,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
               padding: EdgeInsets.zero,
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilPage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilPage()),
+                );
               },
               icon: Icon(Icons.account_circle),
               color: Colors.white,
@@ -192,14 +194,6 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
                 );
               },
               icon: Icon(Icons.psychology),
-              color: Colors.white,
-            ),
-            IconButton(
-              padding: EdgeInsets.zero,
-              onPressed: () {
-                // ayarlar butonuna basıldığında yapılacak işlemler
-              },
-              icon: Icon(Icons.settings),
               color: Colors.white,
             ),
           ],
@@ -291,9 +285,9 @@ class CardWidget extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                '- ${quote.author}',
+                "- ${quote.author}",
                 style: TextStyle(
-                  fontStyle: FontStyle.italic,
+                  fontSize: 12,
                 ),
                 textAlign: TextAlign.end,
               ),
@@ -306,25 +300,28 @@ class CardWidget extends StatelessWidget {
 }
 
 class RefreshCardWidget extends StatelessWidget {
-  final Function refreshQuotes;
+  final Function onTap;
 
-  const RefreshCardWidget(this.refreshQuotes);
+  const RefreshCardWidget(this.onTap);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      width: 200,
-      height: 400,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: InkWell(
-          onTap: () => refreshQuotes(),
-          child: Center(
-            child: Icon(Icons.refresh),
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        width: 200,
+        height: 400,
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Icon(
+            Icons.refresh,
+            size: 50,
           ),
         ),
       ),
