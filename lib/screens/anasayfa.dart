@@ -67,12 +67,13 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
 
   Future<void> fetchStoicQuotes() async {
     final response =
-    await http.get(Uri.parse('https://stoic-quotes.com/api/quotes?num=10'));
+        await http.get(Uri.parse('https://stoic-quotes.com/api/quotes?num=10'));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body) as List<dynamic>;
       setState(() {
         quotes = jsonData
-            .map((json) => StoicQuote(json['text'] as String, json['author'] as String))
+            .map((json) =>
+                StoicQuote(json['text'] as String, json['author'] as String))
             .toList();
       });
     } else {
@@ -110,7 +111,6 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,9 +136,12 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    ...categories.map((category) => CategoryItem(category['name'] as String, () {
-                      fetchCategoryNotes(category['id'].toString());
-                    })).toList(),
+                    ...categories
+                        .map((category) =>
+                            CategoryItem(category['name'] as String, () {
+                              fetchCategoryNotes(category['id'].toString());
+                            }))
+                        .toList(),
                   ],
                 ),
               ),
@@ -166,7 +169,10 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green.shade400,
         child: Container(
-            child: Icon(Icons.create,color: Colors.white,)),
+            child: Icon(
+          Icons.create,
+          color: Colors.white,
+        )),
         onPressed: () {
           Navigator.push(
             context,
@@ -245,7 +251,8 @@ class _CategoryItemState extends State<CategoryItem> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: isTapped ? Color.fromARGB(255, 28, 199, 142) : Colors.transparent,
+          color:
+              isTapped ? Color.fromARGB(255, 28, 199, 142) : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(

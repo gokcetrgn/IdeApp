@@ -23,13 +23,13 @@ class DatabaseHelper {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'my_database.db');
 
-    final database = await openDatabase(path, version: 1,
-        onCreate: (db, version) async {
-          await db.execute(
-              'CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY, name TEXT)');
-          await db.execute(
-              'CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, category_id INTEGER, title TEXT, content TEXT)');
-        });
+    final database =
+        await openDatabase(path, version: 1, onCreate: (db, version) async {
+      await db.execute(
+          'CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY, name TEXT)');
+      await db.execute(
+          'CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, category_id INTEGER, title TEXT, content TEXT)');
+    });
 
     return database;
   }

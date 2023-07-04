@@ -19,9 +19,11 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
     super.initState();
     initializeFirebase();
   }
-  Future<void> initializeFirebase() async{
+
+  Future<void> initializeFirebase() async {
     await Firebase.initializeApp();
   }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -45,7 +47,10 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
                     )),
                 Text(
                   "Fikirlerinizi kategorileyip kaydedin. ",
-                  style: TextStyle(color: Colors.black54,fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
@@ -84,7 +89,7 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
                         side: const BorderSide(
                             width: 2, // the thickness
                             color: Colors.white // the color of the border
-                        ),
+                            ),
                       ),
                       onPressed: () {
                         Navigator.push(
@@ -105,7 +110,8 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
                   child: TextButton(
                     onPressed: () {
                       FirebaseAuth.instance.signInAnonymously();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Anasayfa()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Anasayfa()));
                     },
                     child: Text(
                       "Üye olmadan devam et ",

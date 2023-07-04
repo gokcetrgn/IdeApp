@@ -6,8 +6,8 @@ import 'package:ideapp/screens/anasayfa.dart';
 import 'package:ideapp/screens/auth_kismi.dart';
 import 'package:provider/provider.dart';
 
-void main() async
-{ WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -28,10 +28,10 @@ class MyApp extends StatelessWidget {
         ),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
               return Anasayfa();
-            }else{
+            } else {
               return GecisSayfasi();
             }
           },
@@ -40,4 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

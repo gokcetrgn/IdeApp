@@ -43,59 +43,62 @@ class _GecisSayfasiState extends State<GecisSayfasi> {
       ),
       bottomSheet: islastpage
           ? TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.white70,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-          ),
-          minimumSize: Size.fromHeight(80),
-        ),
-        onPressed: () async {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setBool('digerSayfayaGecisi',true);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => KayitmiGirismi()));
-        },
-        child: Text(
-          "KEŞFET",
-          style: TextStyle(fontSize: 24, color: Colors.green.shade400),
-        ),
-      )
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white70,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                minimumSize: Size.fromHeight(80),
+              ),
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                prefs.setBool('digerSayfayaGecisi', true);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => KayitmiGirismi()));
+              },
+              child: Text(
+                "KEŞFET",
+                style: TextStyle(fontSize: 24, color: Colors.green.shade400),
+              ),
+            )
           : Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: BoxDecoration(color: Colors.green.shade100),
-        height: 80,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-                onPressed: () => controller.jumpToPage(3),
-                child: Text(
-                  "GEÇ",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                )),
-            Center(
-              child: SmoothPageIndicator(
-                  controller: controller,
-                  count: 4,
-                  effect:
-                  WormEffect(spacing: 16, dotColor: Colors.green.shade300,activeDotColor: Colors.black87),
-                  onDotClicked: (index) => controller.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn)
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: BoxDecoration(color: Colors.green.shade100),
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                      onPressed: () => controller.jumpToPage(3),
+                      child: Text(
+                        "GEÇ",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )),
+                  Center(
+                    child: SmoothPageIndicator(
+                        controller: controller,
+                        count: 4,
+                        effect: WormEffect(
+                            spacing: 16,
+                            dotColor: Colors.green.shade300,
+                            activeDotColor: Colors.black87),
+                        onDotClicked: (index) => controller.animateToPage(index,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeIn)),
+                  ),
+                  TextButton(
+                      onPressed: () => controller.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut),
+                      child: Text(
+                        "DEVAM ET",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )),
+                ],
               ),
             ),
-            TextButton(
-                onPressed: () => controller.nextPage(
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.easeInOut),
-                child: Text(
-                  "DEVAM ET",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                )),
-          ],
-        ),
-      ),
     );
   }
 }

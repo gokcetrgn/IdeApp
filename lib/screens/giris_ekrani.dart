@@ -9,7 +9,6 @@ import 'package:ideapp/screens/google_ile_giris.dart';
 import 'package:ideapp/screens/uye_ol_ekrani.dart';
 import 'package:provider/provider.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -19,11 +18,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   void login() {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+    AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
     authProvider.setLoggedIn(true);
   }
-  User? user = FirebaseAuth.instance.currentUser;
 
+  User? user = FirebaseAuth.instance.currentUser;
 
   var _textsifre = TextEditingController();
   var _textemail = TextEditingController();
@@ -116,13 +116,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 250,
                       child: ElevatedButton(
                         onPressed: () {
-                          bool kontrolSonucu =
-                          formKey.currentState!.validate();
+                          bool kontrolSonucu = formKey.currentState!.validate();
                           if (kontrolSonucu) {
                             String email = _textemail.text;
                             String sifre = _textsifre.text;
 
-                            signInWithEmailAndPassword(email,sifre);
+                            signInWithEmailAndPassword(email, sifre);
                           }
                         },
                         child: Text(
@@ -175,7 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         SetOptions(merge: true),
                       );
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Anasayfa()));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Anasayfa()));
                     },
                     child: Text("Google ile giriş yap",
                         style: TextStyle(
@@ -206,13 +206,13 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-        )
-    );
+        ));
   }
+
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       final UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -252,4 +252,3 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 }
-

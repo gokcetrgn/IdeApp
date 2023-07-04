@@ -27,7 +27,11 @@ class _PageThreeState extends State<PageThree> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Unutmadan! Sadece fikirlerini değil, her türden notlarını saklayabilirsin. İster okul ister iş hayatın için indir, senin için buradayız. ",
-                style: TextStyle(fontSize: 22,color: Colors.green.shade600,fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.green.shade600,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
             ),
           ],

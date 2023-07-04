@@ -45,7 +45,8 @@ class _NotlarPageState extends State<NotlarPage> {
       builder: (context) {
         return AlertDialog(
           title: Text('Kategoriyi Sil'),
-          content: Text('Silmek istediğinize emin misiniz? Kategoriye ait bütün notlar silinecek.'),
+          content: Text(
+              'Silmek istediğinize emin misiniz? Kategoriye ait bütün notlar silinecek.'),
           actions: [
             TextButton(
               child: Text('Vazgeç'),
@@ -156,7 +157,8 @@ class _NotlarPageState extends State<NotlarPage> {
                   },
                   title: Row(
                     children: [
-                      if (searchController.text.isEmpty) // Sadece ana listede numaralandırma yap
+                      if (searchController.text
+                          .isEmpty) // Sadece ana listede numaralandırma yap
                         Container(
                           width: 24,
                           height: 24,
@@ -174,7 +176,8 @@ class _NotlarPageState extends State<NotlarPage> {
                             ),
                           ),
                         ),
-                      if (searchController.text.isNotEmpty) // Arama sonuçlarında mavi bir küre göster
+                      if (searchController.text
+                          .isNotEmpty) // Arama sonuçlarında mavi bir küre göster
                         Container(
                           width: 24,
                           height: 24,

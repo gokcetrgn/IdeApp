@@ -75,7 +75,8 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
                 final noteTitle = note['title'];
                 final noteContent = note['content'];
                 final previewTitle = noteTitle.split('\n').take(2).join('\n');
-                final previewContent = noteContent.split('\n').take(2).join('\n');
+                final previewContent =
+                    noteContent.split('\n').take(2).join('\n');
 
                 return ListTile(
                   title: Text(
@@ -95,7 +96,8 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
                     },
                   ),
                   onTap: () async {
-                    await _navigateToNoteDetail(context, noteTitle, noteContent, noteId);
+                    await _navigateToNoteDetail(
+                        context, noteTitle, noteContent, noteId);
                   },
                 );
               },
@@ -138,7 +140,8 @@ class _OkunanNotPageState extends State<OkunanNotPage> {
     loadNotes();
   }
 
-  Future<void> _navigateToNoteDetail(BuildContext context, String noteTitle, String noteContent, int noteId) async {
+  Future<void> _navigateToNoteDetail(BuildContext context, String noteTitle,
+      String noteContent, int noteId) async {
     await Navigator.push(
       context,
       MaterialPageRoute(

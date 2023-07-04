@@ -29,21 +29,33 @@ class _PageFourState extends State<PageFour> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "Peki sen de notlarını ve fikirlerini ölümsüzleştirmek istemez misin?",
-                style: TextStyle(fontSize: 22,color: Colors.green.shade600,fontWeight: FontWeight.bold),textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.green.shade600,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => KayitmiGirismi()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => KayitmiGirismi()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Gezinmeye başla", style: TextStyle(fontSize: 26,color: Colors.green.shade600,fontWeight: FontWeight.bold),),
-                  Icon(Icons.arrow_downward_outlined,color: Colors.green.shade600),
+                  Text(
+                    "Gezinmeye başla",
+                    style: TextStyle(
+                        fontSize: 26,
+                        color: Colors.green.shade600,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Icon(Icons.arrow_downward_outlined,
+                      color: Colors.green.shade600),
                 ],
               ),
             ),

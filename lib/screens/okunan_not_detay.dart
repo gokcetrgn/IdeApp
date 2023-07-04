@@ -6,7 +6,10 @@ class DuzenlemeSayfasi extends StatefulWidget {
   final String noteContent;
   final int noteId; // noteId değeri artık null olmayacak
 
-  DuzenlemeSayfasi({required this.noteTitle, required this.noteContent, required this.noteId});
+  DuzenlemeSayfasi(
+      {required this.noteTitle,
+      required this.noteContent,
+      required this.noteId});
 
   @override
   _DuzenlemeSayfasiState createState() => _DuzenlemeSayfasiState();
@@ -48,7 +51,8 @@ class _DuzenlemeSayfasiState extends State<DuzenlemeSayfasi> {
             ),
             SizedBox(height: 8),
             Container(
-              constraints: BoxConstraints(minHeight: 50, maxHeight: double.infinity),
+              constraints:
+                  BoxConstraints(minHeight: 50, maxHeight: double.infinity),
               child: SingleChildScrollView(
                 child: TextField(
                   controller: _titleController,
@@ -133,13 +137,15 @@ class _DuzenlemeSayfasiState extends State<DuzenlemeSayfasi> {
     String newTitle = _titleController.text;
     String newContent = _contentController.text;
 
-    await dbHelper.updateNote(widget.noteId, newTitle, newContent); // widget.noteId doğru değeri kullanarak güncelleme yapılıyor
+    await dbHelper.updateNote(widget.noteId, newTitle,
+        newContent); // widget.noteId doğru değeri kullanarak güncelleme yapılıyor
 
     Navigator.pop(context);
   }
 
   Future<void> _deleteNote() async {
-    await dbHelper.deleteNote(widget.noteId); // widget.noteId doğru değeri kullanarak silme işlemi yapılıyor
+    await dbHelper.deleteNote(widget
+        .noteId); // widget.noteId doğru değeri kullanarak silme işlemi yapılıyor
 
     Navigator.pop(context);
   }

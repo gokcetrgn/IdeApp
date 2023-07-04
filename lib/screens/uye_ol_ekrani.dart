@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ideapp/screens/giris_ekrani.dart';
 
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -163,8 +162,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             String ad = _textad.text;
                           }
                           try {
-                            var methods =
-                            await FirebaseAuth.instance.fetchSignInMethodsForEmail(_textemail.text);
+                            var methods = await FirebaseAuth.instance
+                                .fetchSignInMethodsForEmail(_textemail.text);
                             if (methods.isNotEmpty) {
                               // E-posta zaten kayıtlı
                               print('E-posta kullanımda.');
@@ -174,7 +173,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                               );
                             } else {
-                              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
                                 email: _textemail.text,
                                 password: _textsifre.text,
                               );
@@ -186,7 +186,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   // Snackbar süresi bittiğinde sayfa değiştir
                                   Navigator.pushReplacement(
                                     context,
-                                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()),
                                   );
                                 }
                               });

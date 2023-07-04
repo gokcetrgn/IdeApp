@@ -29,7 +29,9 @@ class _PageTwoState extends State<PageTwo> {
                 "IdeApp olarak fikirlerinin değerinin farkındayız. Onları kategorileştirip senin için tutuyoruz! Ayrıca uygulama içinde ilham da alabilirsin :)",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.green.shade500, fontWeight: FontWeight.bold,fontSize: 22),
+                    color: Colors.green.shade500,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22),
               ),
             ),
           ],
