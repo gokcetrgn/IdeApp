@@ -4,8 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ideapp/screens/anasayfa.dart';
+import 'package:ideapp/screens/auth_kismi.dart';
 import 'package:ideapp/screens/google_ile_giris.dart';
 import 'package:ideapp/screens/uye_ol_ekrani.dart';
+import 'package:provider/provider.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,7 +18,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  void login() {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.setLoggedIn(true);
+  }
   User? user = FirebaseAuth.instance.currentUser;
+
 
   var _textsifre = TextEditingController();
   var _textemail = TextEditingController();
@@ -211,8 +219,9 @@ class _LoginScreenState extends State<LoginScreen> {
       final User? user = userCredential.user;
 
       if (user != null) {
+        login();
         // Kullanıcı oturumu açtı, giriş işlemlerini gerçekleştir
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Anasayfa()),
         );

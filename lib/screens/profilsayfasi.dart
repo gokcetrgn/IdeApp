@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ideapp/onboardingpages/GecisSayfasi.dart';
+import 'package:ideapp/main.dart';
+import 'package:ideapp/screens/auth_kismi.dart';
+import 'package:provider/provider.dart';
+
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -15,6 +17,16 @@ class _ProfilPageState extends State<ProfilPage> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    void logout() {
+      AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.setLoggedIn(false); // loggedIn değişkenini false olarak ayarla
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+            (route) => false,
+      );
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -93,10 +105,7 @@ class _ProfilPageState extends State<ProfilPage> {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   await GoogleSignIn().signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => GecisSayfasi()),
-                  );
+                  logout();
                 },
               ),
             ),

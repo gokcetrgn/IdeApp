@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ideapp/screens/giris_ekrani.dart';
 
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -183,7 +184,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   .then((SnackBarClosedReason reason) {
                                 if (reason == SnackBarClosedReason.timeout) {
                                   // Snackbar süresi bittiğinde sayfa değiştir
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(builder: (context) => LoginScreen()),
                                   );
