@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:http/http.dart' as http;
 import 'not_alma.dart';
 import 'notlar.dart';
@@ -108,18 +110,18 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        backgroundColor: Colors.green.shade400,
+        title: Text(
           'IdeApp',
-          style: TextStyle(
-            fontFamily: 'MajorMonoDisplay',
-            fontWeight: FontWeight.bold,
+          style: GoogleFonts.merienda(
             color: Colors.white,
-            letterSpacing: 5.0,
-            fontSize: 28.0,
+            fontSize: 32,
+            fontWeight: FontWeight.w700,
           ),
         ),
         centerTitle: true,
@@ -129,7 +131,7 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
           Column(
             children: [
               Container(
-                color: Colors.green,
+                color: Colors.green.shade400,
                 height: 50,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -160,18 +162,22 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
             ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green.shade400,
+        child: Container(
+            child: Icon(Icons.create,color: Colors.white,)),
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => NotAlmaPage()),
           );
         },
-        child: Icon(Icons.create),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.green,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 6,
+        color: Colors.green.shade300,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

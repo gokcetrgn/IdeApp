@@ -36,7 +36,7 @@ class _ProfilPageState extends State<ProfilPage> {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                border: Border.all(width: 5, color: Colors.red.shade100),
+                border: Border.all(width: 5, color: Colors.red),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
