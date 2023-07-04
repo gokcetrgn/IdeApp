@@ -3,6 +3,7 @@ import 'package:path/path.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
+
   factory DatabaseHelper() => _instance;
 
   static Database? _database;
@@ -44,7 +45,8 @@ class DatabaseHelper {
         {'category_id': kategoriId, 'title': baslik, 'content': icerik});
   }
 
-  Future<List<Map<String, dynamic>>> getNotesByCategory(String categoryId) async {
+  Future<List<Map<String, dynamic>>> getNotesByCategory(
+      String categoryId) async {
     final db = await database;
     return db.query('notes', where: 'category_id = ?', whereArgs: [categoryId]);
   }
@@ -73,7 +75,8 @@ class DatabaseHelper {
 
   Future<List<String>> getCategories() async {
     final categories = await getAllCategories();
-    return List.generate(categories.length, (index) => categories[index]['name'].toString());
+    return List.generate(
+        categories.length, (index) => categories[index]['name'].toString());
   }
 
   Future<List<Map<String, dynamic>>> loadNotes(String categoryId) async {

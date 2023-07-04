@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AuthProvider(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'IdeApp',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
