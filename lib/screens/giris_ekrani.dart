@@ -187,7 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Colors.red,
                                   Colors.yellow,
                                   Colors.green,
-                                  //add more color here.
                                 ],
                               ).createShader(
                                   Rect.fromLTWH(0.0, 0.0, 200.0, 100.0)))),
@@ -220,7 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (user != null) {
         login();
-        // Kullanıcı oturumu açtı, giriş işlemlerini gerçekleştir
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => Anasayfa()),

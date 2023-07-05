@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -89,7 +88,6 @@ class _AnasayfaPageState extends State<AnasayfaPage> {
   }
 
   Future<void> fetchCategoryNotes(String categoryId) async {
-    // Notları getirdikten sonra OkunanNotPage'e geçiş yapabilirsiniz
     Navigator.push(
       context,
       MaterialPageRoute(

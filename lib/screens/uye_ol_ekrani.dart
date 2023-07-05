@@ -183,7 +183,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                   .closed
                                   .then((SnackBarClosedReason reason) {
                                 if (reason == SnackBarClosedReason.timeout) {
-                                  // Snackbar süresi bittiğinde sayfa değiştir
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

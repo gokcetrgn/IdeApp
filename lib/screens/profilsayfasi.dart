@@ -20,7 +20,7 @@ class _ProfilPageState extends State<ProfilPage> {
       AuthProvider authProvider =
           Provider.of<AuthProvider>(context, listen: false);
       authProvider
-          .setLoggedIn(false); // loggedIn değişkenini false olarak ayarla
+          .setLoggedIn(false);
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => MyApp()),
