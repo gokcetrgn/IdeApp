@@ -19,7 +19,7 @@ class _PageFourState extends State<PageFour> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 450,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Image.asset("images/Creativity-rafiki.png"),
             ),
             SizedBox(

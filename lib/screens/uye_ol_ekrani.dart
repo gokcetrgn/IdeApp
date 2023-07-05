@@ -55,7 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 350,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Column(
                       children: [
                         Image.asset(
@@ -64,7 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Text("Kaydol",
                             style: GoogleFonts.dancingScript(
                               color: Colors.black87,
-                              fontSize: 55,
+                              fontSize: MediaQuery.of(context).size.shortestSide * 0.15,
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.italic,
                             )),

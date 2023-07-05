@@ -18,7 +18,7 @@ class _PageTwoState extends State<PageTwo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 450,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: Image.asset("images/Creativity-amico.png"),
               ),
               SizedBox(

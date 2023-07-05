@@ -24,7 +24,7 @@ class _PageOneState extends State<PageOne> {
                   fontWeight: FontWeight.bold),
             ),
             Container(
-              height: 550,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: Image.asset("images/Creativity-pana.png"),
             ),
             SizedBox(

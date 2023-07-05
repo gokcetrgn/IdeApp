@@ -41,7 +41,7 @@ class _KayitmiGirismiState extends State<KayitmiGirismi> {
                 Text("IdeApp",
                     style: GoogleFonts.dancingScript(
                       color: Colors.black54,
-                      fontSize: 65,
+                      fontSize: MediaQuery.of(context).size.shortestSide * 0.2,
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.italic,
                     )),

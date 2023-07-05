@@ -54,12 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text("IdeApp",
                       style: GoogleFonts.dancingScript(
                         color: Colors.black87,
-                        fontSize: 85,
+                        fontSize: MediaQuery.of(context).size.shortestSide * 0.2,
                         fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.italic,
                       )),
                   Container(
-                    height: 350,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     child: Image.asset("images/Mobilelogin-bro.png"),
                   ),
                   SizedBox(
