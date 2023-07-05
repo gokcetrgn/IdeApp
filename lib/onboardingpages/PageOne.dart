@@ -19,7 +19,7 @@ class _PageOneState extends State<PageOne> {
             Text(
               "IdeApp'e hoş geldin!",
               style: TextStyle(
-                  fontSize: 36,
+                  fontSize: MediaQuery.of(context).size.shortestSide * 0.1,
                   color: Colors.green.shade500,
                   fontWeight: FontWeight.bold),
             ),

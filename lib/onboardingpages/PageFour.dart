@@ -30,7 +30,7 @@ class _PageFourState extends State<PageFour> {
               child: Text(
                 "Peki sen de notlarını ve fikirlerini ölümsüzleştirmek istemez misin?",
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize:MediaQuery.of(context).size.shortestSide * 0.06,
                     color: Colors.green.shade600,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
@@ -50,7 +50,7 @@ class _PageFourState extends State<PageFour> {
                   Text(
                     "Gezinmeye başla",
                     style: TextStyle(
-                        fontSize: 26,
+                        fontSize: MediaQuery.of(context).size.shortestSide * 0.07,
                         color: Colors.green.shade600,
                         fontWeight: FontWeight.bold),
                   ),

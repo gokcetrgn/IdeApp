@@ -28,7 +28,7 @@ class _PageThreeState extends State<PageThree> {
               child: Text(
                 "Unutmadan! Sadece fikirlerini değil, her türden notlarını saklayabilirsin. İster okul ister iş hayatın için indir, senin için buradayız. ",
                 style: TextStyle(
-                    fontSize: 22,
+                    fontSize: MediaQuery.of(context).size.shortestSide * 0.06,
                     color: Colors.green.shade600,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,

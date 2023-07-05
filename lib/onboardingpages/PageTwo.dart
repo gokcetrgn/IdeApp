@@ -31,7 +31,7 @@ class _PageTwoState extends State<PageTwo> {
                 style: TextStyle(
                     color: Colors.green.shade500,
                     fontWeight: FontWeight.bold,
-                    fontSize: 22),
+                    fontSize: MediaQuery.of(context).size.shortestSide * 0.06),
               ),
             ),
           ],
