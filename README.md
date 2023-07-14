@@ -5,8 +5,8 @@ F-138
 - Egehan Koç: Product Owner / Developer
 - Gökçenaz Torgan: Scrum Master / Developer
 - Ahsen Aleyna Ceylan: Developer
-- Mert Sinan Işıtan: Developer
-- Ayşe Serra Gümüştakım: Developer
+- Mert Sinan Işıtan: Developer (Katkıda bulunmadı.)
+- Ayşe Serra Gümüştakım: Developer (Katkıda bulunmadı.)
 ## Ürün İsmi
 _IdeApp_
 ## Product Backlog URL
